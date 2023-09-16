@@ -1,12 +1,12 @@
 <?php
 namespace Controllers;
 
-require 'vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use GuzzleHttp\Client;
 
 abstract class BaseController {
-    private const CONFIG_LOCATION = './app/etc/config.php';
+    private const CONFIG_LOCATION = __DIR__ . '/../../app/etc/config.php';
 
     public const STORE_BASE_URL = 'https://deniss-tarasevics.myshopify.com';
 
@@ -33,7 +33,7 @@ abstract class BaseController {
     /**
      * @return Client|null
      */
-    private function initGuzzleClient() {
+    protected function initGuzzleClient() {
         if (!$this->config) {
             return null;
         }
