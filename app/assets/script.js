@@ -21,6 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`app/Controllers/Api/products.php${onLoad}`)
             .then(response => response.json())
             .then(data => {
+                if (!data.products) {
+                    productList.innerHTML = 'No products in storage, click Fetch products button';
+                    return;
+                }
                 fetchButton.innerHTML = 'Fetch products';
                 minimalPriceElement.innerHTML = formatPrice(data.productsPriceInfo.minimumPrice);
                 maximalPriceElement.innerHTML = formatPrice(data.productsPriceInfo.maximumPrice);

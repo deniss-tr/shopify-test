@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 abstract class BaseController {
     private const CONFIG_LOCATION = __DIR__ . '/../../app/etc/config.php';
 
-    public const STORE_BASE_URL = 'https://deniss-tarasevics.myshopify.com';
+    private const STORE_BASE_URL = 'https://deniss-tarasevics.myshopify.com';
 
     public function __construct()
     {

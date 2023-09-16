@@ -13,7 +13,7 @@
     width: 100%;
 }
 
-.widget-row,
+.widgetRow,
 .productListRow {
     border-bottom: 1px solid #000;
     display: flex;

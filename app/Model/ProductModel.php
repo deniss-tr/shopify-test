@@ -11,14 +11,26 @@ class ProductModel
         $this->storege = new Storage;
      }
 
-     public function getProductsFromStorage()
+    /**
+     * @return false|string
+     */
+    public function getProductsFromStorage()
      {
         $storageProductsJson = $this->storege->getStorage()->getData('productList');
+
+        if (!$storageProductsJson) {
+            return '{}';
+        }
+
         $products = json_decode($storageProductsJson, true);
 
         return $this->getProductsJson($products);
      }
 
+    /**
+     * @param $products
+     * @return false|string
+     */
     public function getProductsJson($products)
     {
         $priceInfo = $this->getProductsPriceInfo($products);
@@ -30,6 +42,10 @@ class ProductModel
         return json_encode($productsOutput);
     }
 
+    /**
+     * @param $products
+     * @return array
+     */
     public function getProductsPriceInfo($products)
     {
         $productsCount = 0;
@@ -38,7 +54,6 @@ class ProductModel
         $maximumPrice = null;
 
         foreach($products as $product) {
-            $tt = $product;
             $productVariants = $product['variants'];
 
             foreach($productVariants as $variant) {
@@ -54,8 +69,6 @@ class ProductModel
                     $maximumPrice = $price;
                 }
             }
-
-            $test = '';
         }
 
         $averagePrice = $priceSum / $productsCount;

@@ -9,6 +9,9 @@ class Storage {
         $this->sessionStorage = new SessionStorage();
     }
 
+    /**
+     * @return StorageManager
+     */
     public function getStorage() {
         return new StorageManager($this->sessionStorage);
     }

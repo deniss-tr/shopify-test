@@ -28,15 +28,15 @@ class ProductController extends BaseController implements EntitiesListInterface 
         $this->client = $this->initGuzzleClient();
 
         try {
+            // fetching products
             $response = $this->client->request('GET', SELF::PRODUCT_LIST_ENDPOINT);
         
             if ($response->getStatusCode() === 200) {
                 $data = json_decode($response->getBody(), true);
                 $products = $data['products'];
                 $productsJson = json_encode($products);
+                // saving fetched products to storage
                 $storage = $this->storege->getStorage();
-                // In task description was mentioned just to save products in storage.
-                // Retriving from storage logic vas not mentioned, methods was created but not used.
                 $storage->saveData('productList', $productsJson);
 
                 return $products;
