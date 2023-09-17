@@ -1,0 +1,7 @@
+<?php
+
+return [
+    'shopify_access_token' => '',
+    'shopify_api_key' => '',
+    'shopify_api_secret' => ''
+];

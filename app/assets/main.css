@@ -57,3 +57,9 @@ span,
     font-size: 18px;
     padding-top: 3px;
 }
+
+@media only screen and (max-width: 900px) {
+    .wrapper {
+        width: 90vw;
+    }
+}

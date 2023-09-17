@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`app/Controllers/Api/products.php${onLoad}`)
             .then(response => response.json())
             .then(data => {
+                if (data.error) {
+                    fetchButton.innerHTML = 'Fetch products';
+                    productList.innerHTML = data.error;
+                    return;
+                }
+
                 if (!data.products) {
                     productList.innerHTML = 'No products in storage, click Fetch products button';
                     return;
@@ -29,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 minimalPriceElement.innerHTML = formatPrice(data.productsPriceInfo.minimumPrice);
                 maximalPriceElement.innerHTML = formatPrice(data.productsPriceInfo.maximumPrice);
                 averagePriceElement.innerHTML = formatPrice(data.productsPriceInfo.averagePrice);
-                console.log('data', data);
 
                 data.products.forEach(product => {
                     const productItemRow = document.createElement('div');

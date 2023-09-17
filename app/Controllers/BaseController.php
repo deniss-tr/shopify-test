@@ -34,7 +34,7 @@ abstract class BaseController {
      * @return Client|null
      */
     protected function initGuzzleClient() {
-        if (!$this->config) {
+        if (!$this->config || !isset($this->config['shopify_access_token'])) {
             return null;
         }
 

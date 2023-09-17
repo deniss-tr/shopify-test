@@ -18,6 +18,7 @@ class ProductController extends BaseController implements EntitiesListInterface 
     {
         parent::__construct();
         $this->storege = new Storage;
+        $this->client = $this->initGuzzleClient();
     }
 
     /**
@@ -25,7 +26,11 @@ class ProductController extends BaseController implements EntitiesListInterface 
      * @throws GuzzleException
      */
     public function getEntities() {
-        $this->client = $this->initGuzzleClient();
+        if (!$this->client) {
+            $error = json_encode(['error' => 'Service unavailable']);
+            echo $error;
+            exit;
+        }
 
         try {
             // fetching products
@@ -41,11 +46,15 @@ class ProductController extends BaseController implements EntitiesListInterface 
 
                 return $products;
             } else {
-                echo 'Error: ' . $response->getStatusCode() . ' - ' . $response->getReasonPhrase();
+                $errorMessage = 'Error: ' . $response->getStatusCode() . ' - ' . $response->getReasonPhrase();
+                $error = json_encode(['error' => $errorMessage]);
+                echo $error;
                 exit;
             }
         } catch (\Exception $e) {
-            echo 'Error: ' . $e->getMessage();
+            $errorMessage = 'Error: ' . $e->getMessage();
+            $error = json_encode(['error' => $errorMessage]);
+            echo $error;
             exit;
         }
     }
