@@ -4,19 +4,16 @@ namespace Model;
 require_once __DIR__ . '/../../app/Storages/Storage.php';
 
 use Storages\Storage;
+
 class ProductModel
 {
-     public function __construct()
-     {
-        $this->storege = new Storage;
-     }
-
     /**
      * @return false|string
      */
     public function getProductsFromStorage()
      {
-        $storageProductsJson = $this->storege->getStorage()->getData('productList');
+        $storage = new Storage;
+        $storageProductsJson = $storage->getStorage()->getData('productList');
 
         if (!$storageProductsJson) {
             return '{}';
